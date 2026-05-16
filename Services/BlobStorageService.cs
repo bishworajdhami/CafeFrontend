@@ -12,16 +12,10 @@ public class BlobStorageService
         var connectionString = configuration["AzureStorage:ConnectionString"];
         var containerName = configuration["AzureStorage:ContainerName"];
 
-        if (string.IsNullOrWhiteSpace(connectionString) || connectionString == "YOUR_AZURE_STORAGE_CONNECTION_STRING")
+        if (string.IsNullOrWhiteSpace(connectionString) || connectionString == "YOUR_AZURE_STORAGE_CONNECTION_STRING" || string.IsNullOrWhiteSpace(containerName) || containerName == "YOUR_CONTAINER_NAME")
         {
-            throw new InvalidOperationException("🚨 ACTION REQUIRED: Please replace 'YOUR_AZURE_STORAGE_CONNECTION_STRING' in appsettings.json with your actual Azure Blob Storage connection string.");
-        }
-
-        if (string.IsNullOrWhiteSpace(containerName) || containerName == "cafe-images")
-        {
-            // Just optionally validate if you need to, but it's fine if container is cafe-images.
-            if (string.IsNullOrWhiteSpace(containerName))
-               throw new InvalidOperationException("Azure Storage container name is not configured.");
+            Console.WriteLine("⚠️ WARNING: Azure Storage is not configured. Image uploads will fail.");
+            return;
         }
 
         var blobServiceClient = new BlobServiceClient(connectionString);
@@ -47,6 +41,9 @@ public class BlobStorageService
     /// </summary>
     public async Task<string> UploadAsync(IFormFile file, string folderPrefix)
     {
+        if (_containerClient == null)
+            throw new InvalidOperationException("Azure Storage is not configured. Cannot upload file.");
+
         var fileExtension = Path.GetExtension(file.FileName);
         var blobName = $"{folderPrefix}/{Guid.NewGuid()}{fileExtension}";
 
@@ -71,7 +68,7 @@ public class BlobStorageService
     /// </summary>
     public async Task DeleteAsync(string blobUrl)
     {
-        if (string.IsNullOrWhiteSpace(blobUrl)) return;
+        if (string.IsNullOrWhiteSpace(blobUrl) || _containerClient == null) return;
 
         try
         {
