@@ -21,15 +21,19 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Allow frontend at http://localhost:3000 (CORS)
+// Allow frontend at http://localhost and live Vercel production site
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.SetIsOriginAllowed(origin => true)
+        policy.WithOrigins(
+                "http://localhost:3000",          // Standard React local port
+                "http://localhost:5173",          // Vite local port
+                "https://cafepos-kappa.vercel.app"  // Your live production Vercel site
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowCredentials(); // Retained so SignalR hubs work seamlessly
     });
 });
 
