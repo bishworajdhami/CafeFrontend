@@ -1,0 +1,38 @@
+# .gitignore for Cafe System (C# Backend + React Frontend)
+
+# --- C# / .NET ---
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+
+# --- React Frontend ---
+Source/cafe/node_modules/
+Source/cafe/build/
+Source/cafe/.env
+Source/cafe/.env.local
+Source/cafe/.env.development.local
+Source/cafe/.env.test.local
+Source/cafe/.env.production.local
+Source/cafe/npm-debug.log*
+Source/cafe/yarn-debug.log*
+Source/cafe/yarn-error.log*
+
+# --- Environment Files ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- OS / Misc ---
+.DS_Store
+Thumbs.db
+*.log
+frontend_error.log
+waiter_temp.txt
+eslint-out.txt

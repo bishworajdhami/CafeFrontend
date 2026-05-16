@@ -1,0 +1,71 @@
+﻿/* Alerts Overlay (Toasts) */
+.wd-alerts-container {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.wd-alert-card {
+  pointer-events: auto;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border);
+  animation: slideDown 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wd-alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+}
+
+.wd-alert-icon {
+  font-size: 1.5rem;
+  color: var(--color-warning);
+}
+
+.wd-alert-content {
+  flex: 1;
+}
+
+.wd-alert-content strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.1rem;
+}
+
+.wd-alert-content span {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.wd-alert-time {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.wd-alert-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--color-danger);
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+}
+

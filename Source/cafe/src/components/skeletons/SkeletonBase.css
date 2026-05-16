@@ -1,0 +1,60 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   SkeletonBase.css  —  Shimmer animation + primitive skeleton atoms
+   All skeleton components import ONLY this file (no extra CSS needed).
+   Uses CSS variables already defined in index.css / theme.css.
+────────────────────────────────────────────────────────────────────────── */
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+/* ── Core atom: apply to any ghost element ── */
+.skel {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-ring) 20%,
+    var(--color-primary-light) 50%,
+    var(--color-primary-ring) 80%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 6px;
+  display: block;
+}
+
+/* ── Size helpers ── */
+.skel-xs  { height: 10px; }
+.skel-sm  { height: 14px; }
+.skel-md  { height: 18px; }
+.skel-lg  { height: 24px; }
+.skel-xl  { height: 36px; }
+.skel-2xl { height: 48px; }
+
+.skel-circle {
+  border-radius: 50%;
+}
+
+/* ── Width helpers ── */
+.skel-w-full  { width: 100%; }
+.skel-w-3-4   { width: 75%; }
+.skel-w-half  { width: 50%; }
+.skel-w-third { width: 33%; }
+.skel-w-qtr   { width: 25%; }
+
+/* ── Wrapper that mimics standard-loader-container spacing ── */
+.skel-page-wrapper {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Generic row ── */
+.skel-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}

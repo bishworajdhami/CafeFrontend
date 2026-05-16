@@ -1,0 +1,6 @@
+@cafeSystem_HostAddress = http://localhost:5038
+
+GET {{cafeSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

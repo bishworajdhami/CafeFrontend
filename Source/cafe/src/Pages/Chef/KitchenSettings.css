@@ -1,0 +1,370 @@
+/* ===== Kitchen Settings — Card-style Layout ===== */
+
+.ks-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+/* .standard-page-header lives in index.css */
+
+.ks-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px var(--color-primary-ring);
+    transition: all 0.2s;
+}
+
+.ks-save-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--color-primary-ring);
+}
+
+/* Success Banner */
+.ks-success-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #15803d;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards Grid */
+.ks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 1rem;
+}
+
+/* Single Card */
+.ks-card {
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1.25rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.ks-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: #c7d2fe;
+}
+
+/* Icon wrap */
+.ks-card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ks-card-icon-wrap.sound {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.ks-card-icon-wrap.alert {
+    background: #fce7f3;
+    color: #db2777;
+}
+
+.ks-card-icon-wrap.auto {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.ks-card-icon-wrap.time {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+.ks-card-icon-wrap.orders {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.ks-card-icon-wrap.display {
+    background: #f0f9ff;
+    color: #0284c7;
+}
+
+/* Card body */
+.ks-card-body {
+    flex: 1;
+}
+
+.ks-card-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.2rem;
+}
+
+.ks-card-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.45;
+    margin-bottom: 0.6rem;
+}
+
+.ks-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Badges */
+.ks-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.6rem;
+    border-radius: 99px;
+    display: inline-block;
+}
+
+.ks-badge.active {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.ks-badge.inactive {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+/* Toggle Switch */
+.ks-toggle {
+    position: relative;
+    display: inline-block;
+    width: 3.25rem;
+    height: 1.875rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.ks-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ks-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #d1d5db;
+    border-radius: 99px;
+    transition: 0.3s;
+}
+
+.ks-slider::before {
+    content: '';
+    position: absolute;
+    width: 1.375rem;
+    height: 1.375rem;
+    left: 0.25rem;
+    bottom: 0.25rem;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.ks-toggle input:checked+.ks-slider {
+    background: #22c55e;
+}
+
+.ks-toggle input:checked+.ks-slider::before {
+    transform: translateX(1.375rem);
+}
+
+/* Number Control */
+.ks-number-control {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.ks-number-control button {
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 7px;
+    background: white;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.ks-number-control button:hover {
+    background: #f1f5f9;
+}
+
+.ks-number-control input {
+    width: 52px;
+    text-align: center;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 7px;
+    padding: 0.3rem 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Mode selector */
+.ks-mode-selector {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.ks-mode-btn {
+    padding: 0.3rem 0.75rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: #475569;
+    transition: all 0.15s;
+}
+
+.ks-mode-btn:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+}
+
+.ks-mode-btn.selected {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}
+
+/* Legacy classes kept for backward compat */
+.btn-save {
+    display: none;
+}
+
+/* Save Button */
+.ks-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.ks-save-btn:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.ks-save-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Success Banner */
+.ks-success-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #d1fae5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    animation: fadeInDown 0.3s ease;
+}
+
+/* Error Banner */
+.ks-error-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 0.9rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .ks-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ks-header {
+        flex-direction: column;
+    }
+}

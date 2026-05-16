@@ -1,0 +1,283 @@
+/* Professional Item Availability Dashboard */
+.availability-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+/* .standard-page-header lives in index.css */
+
+.stats-pills {
+    display: flex;
+    gap: 1rem;
+}
+
+.pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: 99px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    min-width: 90px;
+}
+
+.pill .value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.pill .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.pill.available .value {
+    color: var(--color-primary);
+}
+
+.pill.available {
+    background: var(--color-primary-light);
+    border-color: var(--color-primary-ring);
+}
+
+.pill.unavailable .value {
+    color: #ef4444;
+}
+
+.pill.unavailable {
+    background: #fef2f2;
+    border-color: #fecaca;
+}
+
+/* Filter Bar */
+.filters-bar {
+    display: flex;
+    flex-direction: column;
+    /* Stack them vertically */
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    /* Limit width for aesthetics */
+}
+
+.search-input-wrapper .icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.search-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-ring);
+}
+
+.category-scroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+
+    /* Allow it to take remaining space and SCROLL */
+    flex: 1;
+    min-width: 0;
+    /* Critical for flex child scrolling */
+}
+
+.category-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.category-scroll::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 10px;
+}
+
+.category-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+.cat-chip {
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.cat-chip:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.cat-chip.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 4px var(--color-primary-ring);
+}
+
+/* Inventory Grid */
+.inventory-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.category-group {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.category-title {
+    font-size: 1.1rem;
+    color: #334155;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.items-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.inventory-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.inventory-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.inventory-card.out-of-stock {
+    background: #fffafa;
+    border-left: 4px solid #ef4444;
+}
+
+.inventory-card.in-stock {
+    background: #ffffff;
+    border-left: 4px solid var(--color-primary);
+}
+
+.card-info h4 {
+    margin: 0 0 0.25rem 0;
+    color: #1e293b;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.price-tag {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.card-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.status-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.in-stock .status-text {
+    color: var(--color-primary);
+}
+
+.out-of-stock .status-text {
+    color: #ef4444;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 44px;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #cbd5e1;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 2px;
+    content: "";
+    height: 20px;
+    left: 2px;
+    position: absolute;
+    transition: .4s;
+    width: 20px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+input:checked+.slider {
+    background-color: var(--color-primary);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/* @keyframes fadeIn lives in index.css */
