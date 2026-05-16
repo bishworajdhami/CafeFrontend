@@ -23,19 +23,6 @@ public class BlobStorageService
 
         var blobServiceClient = new BlobServiceClient(connectionString);
         _containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-
-        // Ensure container exists with public blob access
-        try
-        {
-            _containerClient.CreateIfNotExists(PublicAccessType.Blob);
-        }
-        catch (Azure.RequestFailedException ex) when (ex.ErrorCode == "PublicAccessNotPermitted")
-        {
-            throw new InvalidOperationException(
-                "🚨 AZURE PORTAL FIX REQUIRED: Your Azure Storage Account is blocking public access. " +
-                "To fix this: 1) Go to Azure Portal -> your Storage Account. 2) Click 'Configuration' on the left menu. " +
-                "3) Set 'Allow Blob public access' to 'Enabled'. 4) Click Save. Then restart this app.", ex);
-        }
     }
 
     /// <summary>
@@ -46,6 +33,15 @@ public class BlobStorageService
     {
         if (_containerClient == null)
             throw new InvalidOperationException("Azure Storage is not configured. Cannot upload file.");
+
+        try
+        {
+            await _containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
+        }
+        catch (Azure.RequestFailedException ex) when (ex.ErrorCode == "PublicAccessNotPermitted")
+        {
+            throw new InvalidOperationException("Your Azure Storage Account is blocking public access. Please enable it in Azure Portal.", ex);
+        }
 
         var fileExtension = Path.GetExtension(file.FileName);
         var blobName = $"{folderPrefix}/{Guid.NewGuid()}{fileExtension}";
