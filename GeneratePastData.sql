@@ -16,7 +16,118 @@ DECLARE @MinOrdersPerDay INT = 15;
 DECLARE @MaxOrdersPerDay INT = 40;
 DECLARE @TaxRate DECIMAL(5,2) = 0.13;
 
+-- =============================================
+-- 1. ENSURE BASE CONFIGURATIONS & SEED DATA EXIST
+-- =============================================
+
+-- A. ENSURE SETTINGS EXIST
+PRINT 'Initializing System Settings...';
+IF NOT EXISTS (SELECT 1 FROM [Settings])
+BEGIN
+    INSERT INTO [Settings] ([Key], [Value], [UpdatedAt])
+    VALUES
+    ('VatPercentage', '13', GETUTCDATE()),
+    ('VatIncluded', 'True', GETUTCDATE()),
+    ('ServiceChargePercentage', '0', GETUTCDATE()),
+    ('ServiceChargeIncluded', 'False', GETUTCDATE()),
+    ('ShowRefundTab', 'True', GETUTCDATE()),
+    ('tableBookingCharge', '100', GETUTCDATE()),
+    ('tableBookingChargeType', 'per_hour', GETUTCDATE()),
+    ('enableManualTableSelection', 'False', GETUTCDATE()),
+    ('enableTableBooking', 'True', GETUTCDATE()),
+    ('PayFirst', 'False', GETUTCDATE()),
+    ('Kitchen_SoundEnabled', 'True', GETUTCDATE()),
+    ('Kitchen_AutoAcceptOrders', 'True', GETUTCDATE()),
+    ('Kitchen_PriorityAlerts', 'True', GETUTCDATE()),
+    ('Kitchen_DisplayMode', 'grid', GETUTCDATE()),
+    ('Kitchen_PrepTimeWarning', '15', GETUTCDATE()),
+    ('Kitchen_MaxActiveOrders', '10', GETUTCDATE()),
+    ('CafeName', 'KTM Roast & Brew', GETUTCDATE()),
+    ('CafeAddress', 'Kathmandu, Nepal', GETUTCDATE()),
+    ('CafePhone', '9812345678', GETUTCDATE()),
+    ('CafePan', '123456789', GETUTCDATE()),
+    ('CashClosing:AutoSubmitEnabled', 'True', GETUTCDATE()),
+    ('CashClosing:AutoSubmitTime', '23:59', GETUTCDATE()),
+    ('TableConfiguration', '{"floors":[{"id":1766869580558,"name":"Floor 1","tableCount":15,"seats":4,"customSeats":{"15":8}},{"id":1766869585147,"name":"Floor 2","tableCount":14,"seats":4},{"id":1766869586956,"name":"Floor 3","tableCount":8,"seats":6},{"id":1767515340749,"name":"Floor 4","tableCount":10,"seats":6,"customSeats":{"10":10}},{"id":1778858847005,"name":"Floor 5","tableCount":5,"seats":4}]}', GETUTCDATE());
+END
+
+-- B. ENSURE MENU CATEGORIES EXIST
+PRINT 'Initializing Menu Categories...';
+IF NOT EXISTS (SELECT 1 FROM [Cateries])
+BEGIN
+    INSERT INTO [Cateries] ([Name], [CreatedAt])
+    VALUES
+    ('Burger', GETUTCDATE()),
+    ('Momo', GETUTCDATE()),
+    ('Pizza', GETUTCDATE()),
+    ('Tea', GETUTCDATE()),
+    ('Coffee', GETUTCDATE());
+END
+
+-- C. ENSURE MENU ITEMS EXIST
+PRINT 'Initializing Menu Items...';
+IF NOT EXISTS (SELECT 1 FROM [MenuItems])
+BEGIN
+    INSERT INTO [MenuItems] ([Name], [Price], [IsAvailable], [Category], [IsVatExempt], [VatIncluded], [IsDeleted])
+    VALUES
+    ('Milk Tea', 30.00, 1, 'Tea', 0, 0, 0),
+    ('Lemon Tea', 30.00, 1, 'Tea', 0, 0, 0),
+    ('Chicken Burger', 300.00, 1, 'Burger', 0, 0, 0),
+    ('Chicken Pizza', 500.00, 1, 'Pizza', 0, 0, 0),
+    ('Veg Pizza', 400.00, 1, 'Pizza', 0, 0, 0),
+    ('Doppio', 200.00, 1, 'Coffee', 0, 0, 0),
+    ('Americano', 180.00, 1, 'Coffee', 0, 0, 0),
+    ('Lun', 150.00, 1, 'Coffee', 0, 0, 0),
+    ('Latte', 200.00, 1, 'Coffee', 0, 0, 0),
+    ('Cappuccinno', 220.00, 1, 'Coffee', 0, 0, 0),
+    ('Flat White', 200.00, 1, 'Coffee', 0, 0, 0),
+    ('Macchiato', 180.00, 1, 'Coffee', 0, 0, 0),
+    ('Mocha', 250.00, 1, 'Coffee', 0, 0, 0),
+    ('Cortado', 170.00, 1, 'Coffee', 0, 0, 0),
+    ('Espresso', 120.00, 1, 'Coffee', 0, 0, 0),
+    ('Veg Burger', 200.00, 1, 'Burger', 0, 0, 0),
+    ('Buff Burger', 280.00, 1, 'Burger', 0, 0, 0),
+    ('Ham Burger', 220.00, 1, 'Burger', 0, 0, 0),
+    ('Paneer Burger', 280.00, 1, 'Burger', 0, 0, 0),
+    ('Chicken Momo', 150.00, 1, 'Momo', 0, 0, 0);
+END
+
+-- D. ENSURE TABLE SEATS EXIST
+PRINT 'Initializing Table Seats...';
+IF NOT EXISTS (SELECT 1 FROM [TableSeats])
+BEGIN
+    DECLARE @F INT = 1;
+    WHILE @F <= 5
+    BEGIN
+        DECLARE @FName NVARCHAR(50) = 'Floor ' + CAST(@F AS NVARCHAR);
+        DECLARE @MaxTables INT = CASE @F WHEN 1 THEN 15 WHEN 2 THEN 14 WHEN 3 THEN 8 WHEN 4 THEN 10 ELSE 5 END;
+        DECLARE @DefaultSeats INT = CASE @F WHEN 3 THEN 6 WHEN 4 THEN 6 ELSE 4 END;
+        
+        DECLARE @T INT = 1;
+        WHILE @T <= @MaxTables
+        BEGIN
+            DECLARE @TName NVARCHAR(50) = CAST(@T AS NVARCHAR);
+            DECLARE @SeatsForTable INT = @DefaultSeats;
+            
+            IF @F = 1 AND @T = 15 SET @SeatsForTable = 8;
+            IF @F = 4 AND @T = 10 SET @SeatsForTable = 10;
+            
+            DECLARE @S INT = 1;
+            WHILE @S <= @SeatsForTable
+            BEGIN
+                INSERT INTO [TableSeats] ([FloorName], [TableNumber], [SeatNumber], [Status])
+                VALUES (@FName, @TName, @S, 'Available');
+                SET @S = @S + 1;
+            END
+            SET @T = @T + 1;
+        END
+        SET @F = @F + 1;
+    END
+END
+
+-- =============================================
 -- 2. ENSURE STOCK PRODUCTS EXIST
+-- =============================================
 PRINT 'Initializing Stock Products...';
 BEGIN TRANSACTION;
 
