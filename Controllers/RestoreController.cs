@@ -71,8 +71,10 @@ namespace cafeSystem.Controllers
                     // --- Settings ---
                     if (payload.Settings != null && payload.Settings.Any())
                     {
+                        await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Settings ON");
                         await _context.Settings.AddRangeAsync(payload.Settings);
                         await _context.SaveChangesAsync();
+                        await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT Settings OFF");
                     }
 
                     // --- Categories ---
