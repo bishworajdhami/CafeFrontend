@@ -68,28 +68,28 @@ END
 PRINT 'Initializing Menu Items...';
 IF NOT EXISTS (SELECT 1 FROM [MenuItems])
 BEGIN
-    INSERT INTO [MenuItems] ([Name], [Price], [IsAvailable], [Category], [IsVatExempt], [VatIncluded], [IsDeleted])
+    INSERT INTO [MenuItems] ([Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
     VALUES
-    ('Milk Tea', 30.00, 1, 'Tea', 0, 0, 0),
-    ('Lemon Tea', 30.00, 1, 'Tea', 0, 0, 0),
-    ('Chicken Burger', 300.00, 1, 'Burger', 0, 0, 0),
-    ('Chicken Pizza', 500.00, 1, 'Pizza', 0, 0, 0),
-    ('Veg Pizza', 400.00, 1, 'Pizza', 0, 0, 0),
-    ('Doppio', 200.00, 1, 'Coffee', 0, 0, 0),
-    ('Americano', 180.00, 1, 'Coffee', 0, 0, 0),
-    ('Lun', 150.00, 1, 'Coffee', 0, 0, 0),
-    ('Latte', 200.00, 1, 'Coffee', 0, 0, 0),
-    ('Cappuccinno', 220.00, 1, 'Coffee', 0, 0, 0),
-    ('Flat White', 200.00, 1, 'Coffee', 0, 0, 0),
-    ('Macchiato', 180.00, 1, 'Coffee', 0, 0, 0),
-    ('Mocha', 250.00, 1, 'Coffee', 0, 0, 0),
-    ('Cortado', 170.00, 1, 'Coffee', 0, 0, 0),
-    ('Espresso', 120.00, 1, 'Coffee', 0, 0, 0),
-    ('Veg Burger', 200.00, 1, 'Burger', 0, 0, 0),
-    ('Buff Burger', 280.00, 1, 'Burger', 0, 0, 0),
-    ('Ham Burger', 220.00, 1, 'Burger', 0, 0, 0),
-    ('Paneer Burger', 280.00, 1, 'Burger', 0, 0, 0),
-    ('Chicken Momo', 150.00, 1, 'Momo', 0, 0, 0);
+    ('Milk Tea', 30.00, 1, 'Tea', 0, 0),
+    ('Lemon Tea', 30.00, 1, 'Tea', 0, 0),
+    ('Chicken Burger', 300.00, 1, 'Burger', 0, 0),
+    ('Chicken Pizza', 500.00, 1, 'Pizza', 0, 0),
+    ('Veg Pizza', 400.00, 1, 'Pizza', 0, 0),
+    ('Doppio', 200.00, 1, 'Coffee', 0, 0),
+    ('Americano', 180.00, 1, 'Coffee', 0, 0),
+    ('Lun', 150.00, 1, 'Coffee', 0, 0),
+    ('Latte', 200.00, 1, 'Coffee', 0, 0),
+    ('Cappuccinno', 220.00, 1, 'Coffee', 0, 0),
+    ('Flat White', 200.00, 1, 'Coffee', 0, 0),
+    ('Macchiato', 180.00, 1, 'Coffee', 0, 0),
+    ('Mocha', 250.00, 1, 'Coffee', 0, 0),
+    ('Cortado', 170.00, 1, 'Coffee', 0, 0),
+    ('Espresso', 120.00, 1, 'Coffee', 0, 0),
+    ('Veg Burger', 200.00, 1, 'Burger', 0, 0),
+    ('Buff Burger', 280.00, 1, 'Burger', 0, 0),
+    ('Ham Burger', 220.00, 1, 'Burger', 0, 0),
+    ('Paneer Burger', 280.00, 1, 'Burger', 0, 0),
+    ('Chicken Momo', 150.00, 1, 'Momo', 0, 0);
 END
 
 -- D. ENSURE TABLE SEATS EXIST
