@@ -657,6 +657,31 @@ namespace cafeSystem.Controllers
             public string NewPassword { get; set; }
         }
 
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetMe()
+        {
+            var email = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(email))
+                return Unauthorized(new { status = false, message = "User not authenticated" });
+
+            var emailNormalized = email.Trim().ToLowerInvariant();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == emailNormalized);
+
+            if (user == null)
+                return NotFound(new { status = false, message = "User not found" });
+
+            return Ok(new
+            {
+                status = true,
+                email = user.Email,
+                name = user.Name,
+                role = user.Role,
+                permissions = user.Permissions ?? "",
+                profilePictureUrl = user.ProfilePictureUrl
+            });
+        }
+
         [HttpPut("profile")]
         [Authorize]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileRequest model)
