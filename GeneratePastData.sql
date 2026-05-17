@@ -22,13 +22,13 @@ BEGIN TRANSACTION;
 
 IF NOT EXISTS (SELECT 1 FROM [Products])
 BEGIN
-    INSERT INTO [Products] ([Name], [Category], [Unit], [MinStockLevel], [ShelfLifeDays], [Price], [DailyUsageRate], [IsArchived])
+    INSERT INTO [Products] ([Name], [Category], [Unit], [MinStockLevel], [ShelfLifeDays], [Price], [DailyUsageRate], [IsArchived], [ReorderDays])
     VALUES 
-    ('Coffee Beans (Arabica)', 'Ingredients', 'KG', 5, 180, 1200, 0.5, 0),
-    ('Whole Milk', 'Dairy', 'Litre', 10, 7, 95, 2.0, 0),
-    ('Brown Sugar', 'Ingredients', 'KG', 5, 365, 110, 0.2, 0),
-    ('Paper Napkins', 'Supplies', 'Pack', 20, 1000, 55, 1.0, 0),
-    ('Chocolate Syrup', 'Add-ons', 'Bottle', 3, 180, 450, 0.1, 0);
+    ('Coffee Beans (Arabica)', 'Ingredients', 'KG', 5, 180, 1200, 0.5, 0, 3),
+    ('Whole Milk', 'Dairy', 'Litre', 10, 7, 95, 2.0, 0, 3),
+    ('Brown Sugar', 'Ingredients', 'KG', 5, 365, 110, 0.2, 0, 3),
+    ('Paper Napkins', 'Supplies', 'Pack', 20, 1000, 55, 1.0, 0, 3),
+    ('Chocolate Syrup', 'Add-ons', 'Bottle', 3, 180, 450, 0.1, 0, 3);
 END
 
 COMMIT;
@@ -91,13 +91,13 @@ BEGIN
         INSERT INTO [Orders] (
             [UserId], [OrderType], [TableNumber], [Status], 
             [Subtotal], [Tax], [ServiceCharge], [BookingCharge], [Total], 
-            [PaymentStatus], [CreatedAt], [ReadyAt], [BookingId]
+            [PaymentStatus], [CreatedAt], [ReadyAt], [BookingId], [UpdatedAt]
         ) VALUES (
             @UserId, @OrderType, 
             CASE WHEN @OrderType = 'dine-in' THEN CAST((ABS(CHECKSUM(NEWID())) % 20 + 1) AS NVARCHAR) ELSE NULL END,
             'Completed',
             0, 0, 0, @BookingCharge, 0, 
-            'paid', @OrderTime, DATEADD(minute, 20, @OrderTime), NULL -- Set to NULL to avoid FK conflicts
+            'paid', @OrderTime, DATEADD(minute, 20, @OrderTime), NULL, @OrderTime -- Set to NULL to avoid FK conflicts, UpdatedAt set to @OrderTime
         );
 
         DECLARE @NewOrderId INT = SCOPE_IDENTITY();
@@ -154,11 +154,11 @@ BEGIN
     DECLARE @ActualCash DECIMAL(18,2) = @OpeningCash + @DailyCashSales + @ManagerAdded - @ManagerRemoved - @CashExpenses;
     INSERT INTO [CashClosings] (
         [Date], [CashInDrawer], [CashExpenses], [Notes], [TotalSales], [TotalOrders], 
-        [CashSales], [CardSales], [MobileSales], [OpeningCash], [SubmittedByUserId], [SubmittedByUserName]
+        [CashSales], [CardSales], [MobileSales], [OpeningCash], [SubmittedByUserId], [SubmittedByUserName], [ClosedAt]
     ) VALUES (
         @DayStart, @ActualCash, @CashExpenses, 'Historical Data', @DailyTotalSales, @DailyOrdersCount,
         @DailyCashSales, @DailyCardSales, @DailyMobileSales, @OpeningCash, 
-        (SELECT TOP 1 Id FROM @StaffUsers WHERE Role = 'Cashier'), 'History Bot'
+        (SELECT TOP 1 Id FROM @StaffUsers WHERE Role = 'Cashier'), 'History Bot', @DayStart
     );
     SET @OpeningCash = @ActualCash;
 
