@@ -140,7 +140,11 @@ namespace cafeSystem.Controllers
             // Just basic update for now.
             staffMember.Name = model.Name;
             staffMember.Role = model.Role;
-            staffMember.Permissions = model.Permissions;
+            // Only update permissions if explicitly provided (null means not sent, e.g. from the Edit form)
+            if (model.Permissions != null)
+            {
+                staffMember.Permissions = model.Permissions;
+            }
             
             // Handle Email Update
             if (!string.IsNullOrWhiteSpace(model.Email) && model.Email.Trim().ToLowerInvariant() != staffMember.Email)

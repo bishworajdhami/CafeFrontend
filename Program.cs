@@ -157,20 +157,22 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     try {
-        // Repair Cashiers
+        // Backfill Cashiers — only when Permissions has never been set (IS NULL).
+        // An empty string means the manager deliberately disabled ALL permissions
+        // for that account, so we must NOT reset it here.
         context.Database.ExecuteSqlRaw(@"
             UPDATE Users 
             SET Permissions = 'pos.toggle_availability,pos.process_refunds,pos.manage_discounts' 
             WHERE Role = 'Cashier' 
-            AND (Permissions IS NULL OR Permissions = '');
+            AND Permissions IS NULL;
         ");
 
-        // Repair Chefs
+        // Backfill Chefs — same rule as above.
         context.Database.ExecuteSqlRaw(@"
             UPDATE Users 
             SET Permissions = 'kitchen.manage_menu,kitchen.toggle_availability' 
             WHERE Role = 'Chef' 
-            AND (Permissions IS NULL OR Permissions = '');
+            AND Permissions IS NULL;
         ");
         Console.WriteLine("[DB FIX] Existing account permissions repaired.");
     } catch (Exception ex) {
