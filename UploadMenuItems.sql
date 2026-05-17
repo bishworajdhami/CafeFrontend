@@ -98,6 +98,81 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 53)
 IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 54)
     INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
     VALUES (54, N'Chicken Momo', CAST(150.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 55)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (55, N'Cold Brew', CAST(190.00 AS Decimal(18, 2)), 1, N'Coffee', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 56)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (56, N'Iced Latte', CAST(220.00 AS Decimal(18, 2)), 1, N'Coffee', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 57)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (57, N'Caramel Macchiato', CAST(280.00 AS Decimal(18, 2)), 1, N'Coffee', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 58)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (58, N'Irish Coffee', CAST(320.00 AS Decimal(18, 2)), 1, N'Coffee', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 59)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (59, N'Affogato', CAST(250.00 AS Decimal(18, 2)), 1, N'Coffee', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 60)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (60, N'Green Tea', CAST(60.00 AS Decimal(18, 2)), 1, N'Tea', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 61)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (61, N'Black Tea', CAST(40.00 AS Decimal(18, 2)), 1, N'Tea', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 62)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (62, N'Ginger Honey Tea', CAST(90.00 AS Decimal(18, 2)), 1, N'Tea', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 63)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (63, N'Matcha Latte', CAST(260.00 AS Decimal(18, 2)), 1, N'Tea', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 64)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (64, N'Masala Chai', CAST(80.00 AS Decimal(18, 2)), 1, N'Tea', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 65)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (65, N'Double Cheese Burger', CAST(380.00 AS Decimal(18, 2)), 1, N'Burger', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 66)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (66, N'Crispy Chicken Burger', CAST(320.00 AS Decimal(18, 2)), 1, N'Burger', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 67)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (67, N'Bacon Swiss Burger', CAST(420.00 AS Decimal(18, 2)), 1, N'Burger', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 68)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (68, N'BBQ Pulled Pork Burger', CAST(450.00 AS Decimal(18, 2)), 1, N'Burger', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 69)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (69, N'Veg Momo', CAST(120.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 70)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (70, N'Buff Momo', CAST(140.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 71)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (71, N'Cheese Momo', CAST(180.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 72)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (72, N'Jhol Momo', CAST(170.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 73)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (73, N'C-Momo', CAST(190.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 74)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (74, N'Fried Momo', CAST(160.00 AS Decimal(18, 2)), 1, N'Momo', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 75)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (75, N'Margherita Pizza', CAST(380.00 AS Decimal(18, 2)), 1, N'Pizza', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 76)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (76, N'Pepperoni Pizza', CAST(480.00 AS Decimal(18, 2)), 1, N'Pizza', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 77)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (77, N'Mushroom & Olive Pizza', CAST(420.00 AS Decimal(18, 2)), 1, N'Pizza', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 78)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (78, N'Hawaiian Pizza', CAST(460.00 AS Decimal(18, 2)), 1, N'Pizza', 0, 0);
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MenuItems] WHERE [Id] = 79)
+    INSERT INTO [dbo].[MenuItems] ([Id], [Name], [Price], [IsAvailable], [Category], [IsVatExempt], [IsDeleted])
+    VALUES (79, N'BBQ Chicken Pizza', CAST(520.00 AS Decimal(18, 2)), 1, N'Pizza', 0, 0);
 
 SET IDENTITY_INSERT [dbo].[MenuItems] OFF;
 GO
