@@ -57,9 +57,9 @@ namespace cafeSystem.Controllers
                 name = name,
                 icons = new[]
                 {
-                    new { src = "/favicon.ico", sizes = "64x64 32x32 24x24 16x16", type = "image/x-icon" },
-                    new { src = "/logo192.png", type = "image/png", sizes = "192x192" },
-                    new { src = "/logo512.png", type = "image/png", sizes = "512x512" }
+                    new { src = "/favicon.ico",  sizes = "64x64 32x32 24x24 16x16", type = "image/x-icon" },
+                    new { src = "/logo192.png",  sizes = "192x192",                 type = "image/png"    },
+                    new { src = "/logo512.png",  sizes = "512x512",                 type = "image/png"    }
                 },
                 start_url = "/",
                 display = "standalone",
