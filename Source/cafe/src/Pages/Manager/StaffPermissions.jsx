@@ -17,13 +17,18 @@ export default function StaffPermissions() {
   const PERMISSIONS_BY_ROLE = {
     Manager: [],
     Cashier: [
+      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' },
       { id: 'pos.toggle_availability', label: 'Toggle Item Availability', description: 'Can make menu items available or unavailable' },
       { id: 'pos.manage_discounts', label: 'Manage Discounts', description: 'Show Discount Setup page in Cashier module' },
       { id: 'pos.process_refunds', label: 'Process Refunds', description: 'Access to Refund Management page' }
     ],
     Chef: [
+      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' },
       { id: 'kitchen.manage_menu', label: 'Manage Menu', description: 'Access Menu Management (Add items/categories)' },
       { id: 'kitchen.toggle_availability', label: 'Toggle Item Availability', description: 'Can make menu items available or unavailable' }
+    ],
+    Waiter: [
+      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' }
     ]
   };
 
@@ -285,18 +290,19 @@ export default function StaffPermissions() {
             return [...prevStaff, newStaffMember];
           });
 
-          // Show success message with temp password if in dev mode
+          // Show success message with temp password if returned by backend (e.g. dev mode or email failure)
           if (response?.temporaryPassword || response?.TemporaryPassword) {
             const tempPwd = response.temporaryPassword || response.TemporaryPassword;
+            const backendMessage = response?.message || response?.Message || 'Staff account created successfully!';
             setConfirmModal({
               show: true,
               title: 'Staff Account Created',
-              message: `Staff account created successfully!\n\nDevelopment Mode - Temporary Password: ${tempPwd}\n\nThis password has been sent to ${emailNormalized} via email.`,
+              message: `${backendMessage}\n\nTemporary Password: ${tempPwd}\n\nPlease copy this and provide it directly to the staff member!`,
               type: 'primary',
               onConfirm: () => setConfirmModal(prev => ({ ...prev, show: false }))
             });
           } else {
-            setSuccess(`Staff account created successfully! Temporary password has been sent to ${emailNormalized} via email.`);
+            setSuccess(response?.message || response?.Message || `Staff account created successfully! Temporary password has been sent to ${emailNormalized} via email.`);
           }
 
           setShowForm(false);
