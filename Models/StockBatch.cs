@@ -9,7 +9,7 @@ namespace cafeSystem.Models
 
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
 
         public decimal Quantity { get; set; } // Remaining quantity in this batch
 
