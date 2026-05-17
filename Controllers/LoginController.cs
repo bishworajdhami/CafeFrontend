@@ -159,16 +159,6 @@ namespace cafeSystem.Controllers
             if (user == null)
                 return Unauthorized(new { status = false, message = "Invalid credentials" });
 
-            // Check if the user's login access is disabled
-            if (user.Role != "Manager")
-            {
-                var perms = user.Permissions ?? "";
-                if (!perms.Contains("system.login"))
-                {
-                    return Unauthorized(new { status = false, message = "Your account login has been disabled by the manager." });
-                }
-            }
-
             // Check if email is verified (for regular registration, not first login)
             if (!user.EmailVerified && !user.IsFirstLogin)
                 return Unauthorized(new { status = false, message = "Please verify your email before logging in. Check your email for the OTP code." });
@@ -301,15 +291,15 @@ namespace cafeSystem.Controllers
             string defaultPermissions = "";
             if (model.Role == "Cashier")
             {
-                defaultPermissions = "system.login,pos.toggle_availability,pos.process_refunds,pos.manage_discounts";
+                defaultPermissions = "pos.toggle_availability,pos.process_refunds,pos.manage_discounts";
             }
             else if (model.Role == "Chef")
             {
-                defaultPermissions = "system.login,kitchen.manage_menu,kitchen.toggle_availability";
+                defaultPermissions = "kitchen.manage_menu,kitchen.toggle_availability";
             }
             else if (model.Role == "Waiter")
             {
-                defaultPermissions = "system.login,waiter.take_orders,waiter.view_tables";
+                defaultPermissions = "waiter.take_orders,waiter.view_tables";
             }
 
 

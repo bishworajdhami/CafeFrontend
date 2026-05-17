@@ -17,18 +17,13 @@ export default function StaffPermissions() {
   const PERMISSIONS_BY_ROLE = {
     Manager: [],
     Cashier: [
-      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' },
       { id: 'pos.toggle_availability', label: 'Toggle Item Availability', description: 'Can make menu items available or unavailable' },
       { id: 'pos.manage_discounts', label: 'Manage Discounts', description: 'Show Discount Setup page in Cashier module' },
       { id: 'pos.process_refunds', label: 'Process Refunds', description: 'Access to Refund Management page' }
     ],
     Chef: [
-      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' },
       { id: 'kitchen.manage_menu', label: 'Manage Menu', description: 'Access Menu Management (Add items/categories)' },
       { id: 'kitchen.toggle_availability', label: 'Toggle Item Availability', description: 'Can make menu items available or unavailable' }
-    ],
-    Waiter: [
-      { id: 'system.login', label: 'Allow Account Login', description: 'Can log into the system using their account' }
     ]
   };
 
@@ -193,9 +188,9 @@ export default function StaffPermissions() {
     try {
       setLoading(true);
       setError('');
-      
+
       const response = await deleteJson(`/api/manager/staff/${id}`);
-      
+
       if (response && response.status === true) {
         setStaff(prevStaff => prevStaff.filter(s => {
           const staffId = s.id || s.Id || s.userId || s.UserId;
@@ -224,17 +219,17 @@ export default function StaffPermissions() {
       if (editingStaff) {
         const id = editingStaff.id || editingStaff.Id || editingStaff.userId || editingStaff.UserId;
         const emailNormalized = formData.email.trim().toLowerCase();
-        
+
         const payload = {
           name: formData.name.trim() || null,
           role: formData.role,
           email: emailNormalized
         };
-        
+
         if (formData.newPassword) {
           payload.newPassword = formData.newPassword;
         }
-        
+
         const response = await putJson(`/api/manager/staff/${id}`, payload);
 
         if (response && (response.status === true || response.Status === true || response.status === 'true')) {
@@ -450,12 +445,12 @@ export default function StaffPermissions() {
                     </span>
                   </div>
                 </div>
-                 <div className="staff-card-actions">
-                   {role !== 'Manager' && role !== 'Waiter' && (
-                     <button className="btn-card-action btn-card-primary" onClick={() => handleOpenPermissions(staffMember)}>
-                       Permissions
-                     </button>
-                   )}
+                <div className="staff-card-actions">
+                  {role !== 'Manager' && role !== 'Waiter' && (
+                    <button className="btn-card-action btn-card-primary" onClick={() => handleOpenPermissions(staffMember)}>
+                      Permissions
+                    </button>
+                  )}
                   <button className="btn-card-action btn-card-secondary" onClick={() => handleEdit(staffMember)}>
                     Edit
                   </button>
@@ -610,7 +605,7 @@ function PermissionsModal({ staff, availablePermissions, onCancel, onSave, loadi
   const [selected, setSelected] = useState(currentPermissionsString ? currentPermissionsString.split(',') : []);
 
   const togglePermission = (id) => {
-    setSelected(prev => 
+    setSelected(prev =>
       prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
     );
   };
@@ -636,9 +631,9 @@ function PermissionsModal({ staff, availablePermissions, onCancel, onSave, loadi
             {availablePermissions.map(perm => (
               <div key={perm.id} className="permission-item" onClick={() => togglePermission(perm.id)}>
                 <label className="sp-toggle-switch" onClick={(e) => e.stopPropagation()}>
-                  <input 
-                    type="checkbox" 
-                    checked={selected.includes(perm.id)} 
+                  <input
+                    type="checkbox"
+                    checked={selected.includes(perm.id)}
                     onChange={() => togglePermission(perm.id)}
                   />
                   <span className="sp-toggle-slider"></span>
@@ -655,9 +650,9 @@ function PermissionsModal({ staff, availablePermissions, onCancel, onSave, loadi
           <button type="button" className="sp-btn-secondary" onClick={onCancel}>
             Cancel
           </button>
-          <button 
-            type="button" 
-            className="sp-btn-primary" 
+          <button
+            type="button"
+            className="sp-btn-primary"
             disabled={loading}
             onClick={() => onSave(staff.id || staff.Id || staff.userId || staff.UserId, selected)}
           >
