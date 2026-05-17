@@ -53,9 +53,9 @@ END
 
 -- B. ENSURE MENU CATEGORIES EXIST
 PRINT 'Initializing Menu Categories...';
-IF NOT EXISTS (SELECT 1 FROM [Cateries])
+IF NOT EXISTS (SELECT 1 FROM [Categories])
 BEGIN
-    INSERT INTO [Cateries] ([Name], [CreatedAt])
+    INSERT INTO [Categories] ([Name], [CreatedAt])
     VALUES
     ('Burger', GETUTCDATE()),
     ('Momo', GETUTCDATE()),
