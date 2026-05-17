@@ -39,6 +39,54 @@ namespace cafeSystem.Controllers
             _blobService = blobService;
         }
 
+        [HttpGet("diagnostic")]
+        public async Task<IActionResult> GetDiagnostic()
+        {
+            var result = new System.Collections.Generic.Dictionary<string, object>();
+            
+            var connStr = _configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connStr))
+            {
+                result["ConnectionString"] = "MISSING";
+            }
+            else
+            {
+                var parts = connStr.Split(';');
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    if (parts[i].StartsWith("Password=", StringComparison.OrdinalIgnoreCase))
+                    {
+                        parts[i] = "Password=***";
+                    }
+                }
+                result["ConnectionString"] = string.Join(";", parts);
+            }
+            
+            try
+            {
+                var canConnect = await _context.Database.CanConnectAsync();
+                result["DatabaseCanConnect"] = canConnect;
+            }
+            catch (Exception ex)
+            {
+                result["DatabaseCanConnect"] = false;
+                result["DatabaseError"] = ex.Message;
+                result["DatabaseStackTrace"] = ex.StackTrace;
+            }
+            
+            try
+            {
+                var count = await _context.Users.CountAsync();
+                result["UsersCount"] = count;
+            }
+            catch (Exception ex)
+            {
+                result["UsersQueryError"] = ex.Message;
+            }
+            
+            return Ok(result);
+        }
+
         // DTOs for requests
 
 
