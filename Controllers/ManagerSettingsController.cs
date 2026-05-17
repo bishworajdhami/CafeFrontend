@@ -42,6 +42,34 @@ namespace cafeSystem.Controllers
             });
         }
 
+        // Dynamic PWA Manifest — returns real cafe name from DB so Android shows correct app name
+        [AllowAnonymous]
+        [HttpGet("settings/manifest.json")]
+        public async Task<IActionResult> GetManifest()
+        {
+            var cafeName = await _context.Settings.FirstOrDefaultAsync(s => s.Key == "CafeName");
+            var name = cafeName?.Value ?? "KTM Roast & Brew";
+            var shortName = name.Length > 12 ? name.Split(' ')[0] : name;
+
+            var manifest = new
+            {
+                short_name = shortName,
+                name = name,
+                icons = new[]
+                {
+                    new { src = "/favicon.ico", sizes = "64x64 32x32 24x24 16x16", type = "image/x-icon" },
+                    new { src = "/logo192.png", type = "image/png", sizes = "192x192" },
+                    new { src = "/logo512.png", type = "image/png", sizes = "512x512" }
+                },
+                start_url = "/",
+                display = "standalone",
+                theme_color = "#1a0f0a",
+                background_color = "#1a0f0a"
+            };
+
+            return new JsonResult(manifest) { ContentType = "application/manifest+json" };
+        }
+
         [HttpGet("settings")]
         public async Task<IActionResult> GetSettings([FromQuery] bool includePaymentMethods = false)
         {
