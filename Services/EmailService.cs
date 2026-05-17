@@ -40,7 +40,7 @@ namespace cafeSystem.Services
 
             var configPassword = configuration["EmailSettings:SenderPassword"];
             _senderPassword = (string.IsNullOrEmpty(configPassword) || configPassword.Contains("YOUR_EMAIL")) 
-                ? "2025C@fesystem" 
+                ? "uovqcoxficizurpu" 
                 : configPassword;
             
             // Development mode: Skip actual email sending and just log OTP to console
