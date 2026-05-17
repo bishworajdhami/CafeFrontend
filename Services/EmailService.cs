@@ -32,8 +32,16 @@ namespace cafeSystem.Services
             // Try to read from configuration first, fallback to hardcoded values
             _smtpServer = configuration["EmailSettings:SmtpServer"] ?? "smtp.gmail.com";
             _smtpPort = int.Parse(configuration["EmailSettings:SmtpPort"] ?? "587");
-            _senderEmail = configuration["EmailSettings:SenderEmail"] ?? "systemcafe03@gmail.com";
-            _senderPassword = configuration["EmailSettings:SenderPassword"] ?? "2025C@fesystem";
+            
+            var configSender = configuration["EmailSettings:SenderEmail"];
+            _senderEmail = (string.IsNullOrEmpty(configSender) || configSender.Contains("YOUR_EMAIL")) 
+                ? "systemcafe03@gmail.com" 
+                : configSender;
+
+            var configPassword = configuration["EmailSettings:SenderPassword"];
+            _senderPassword = (string.IsNullOrEmpty(configPassword) || configPassword.Contains("YOUR_EMAIL")) 
+                ? "2025C@fesystem" 
+                : configPassword;
             
             // Development mode: Skip actual email sending and just log OTP to console
             // Set "EmailSettings:SkipSending" to "true" in appsettings.json to enable
